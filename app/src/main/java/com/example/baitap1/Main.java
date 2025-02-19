@@ -86,7 +86,7 @@ class ClassRoom {
         return rankCounts;
     }
 
-
+// Chat ho tro
     public void displayRankCounts() {
         Map<String, Integer> rankCounts = getRankCounts();
         System.out.println("\nTong ket so sinh vien theo rank:");
