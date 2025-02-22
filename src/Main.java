@@ -4,6 +4,9 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         ArrayList<ClassRoom> ClassRoomList = new ArrayList<>();
+
+        Factory Factory = new Factory();
+
         // tạo các lớp học
         ClassRoom classRoom1 = Factory.createClasRoom("64HTTT1");
         ClassRoom classRoom2 = Factory.createClasRoom("64HTTT2");
