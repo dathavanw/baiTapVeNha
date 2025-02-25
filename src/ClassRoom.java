@@ -1,29 +1,29 @@
 import java.util.ArrayList;
 
 public class ClassRoom {
-        private String name ;
-        private ArrayList<Students> studentList;
+        private String ClassName ;
+        private ArrayList<IStudent> studentList;
 
-        public ClassRoom (String name){
-            this.name = name;
+        public ClassRoom (String ClassName){
+            this.ClassName = ClassName;
             this.studentList = new ArrayList<>();
         }
         public String getClassName(){
-            return this.name;
+            return this.ClassName;
         }
-        public void addStudent(Students students){
-            studentList.add(students);
+        public void addStudent(IStudent student){
+            studentList.add(student);
         }
         public void viewListStudents(){
-            System.out.println("Danh sách sinh viên lớp "+this.name+":");
-            for(Students students : studentList){
-                System.out.println(students.getFullName());
+            System.out.println("Danh sách sinh viên lớp "+this.ClassName+":");
+            for(IStudent student : studentList){
+                System.out.println(student.getFullName());
             }
         }
         public void countRank(){
             int countRank_A = 0, countRank_B = 0, countRank_C = 0, countRank_D = 0, countRank_F = 0;
-            for (Students students : studentList){
-                String rank = students.getScore().rankScore();
+            for (IStudent student : studentList){
+                String rank = student.getScore().rankScore();
                 switch (rank){
                     case "A": countRank_A++;break;
                     case "B": countRank_B++;break;
@@ -42,7 +42,7 @@ public class ClassRoom {
 
         @Override
         public String toString() {
-            return "Tên lớp: " + this.name;
+            return "Tên lớp: " + this.ClassName;
         }
     }
 

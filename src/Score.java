@@ -1,5 +1,9 @@
 public class Score {
-    private double lapTrinhHuongDoiTuong, quanLyDuAn, hocMay, coSoDuLieu, lapTrinhUngDungChoTBDD;
+    private double lapTrinhHuongDoiTuong;
+    private double quanLyDuAn;
+    private double hocMay;
+    private double coSoDuLieu;
+    private double lapTrinhUngDungChoTBDD;
 
     public Score(double lapTrinhHuongDoiTuong, double quanLyDuAn, double hocMay, double coSoDuLieu, double lapTrinhUngDungChoTBDD) {
         if(!checkScoreInput(lapTrinhHuongDoiTuong) ||
@@ -16,6 +20,8 @@ public class Score {
             this.lapTrinhUngDungChoTBDD = lapTrinhUngDungChoTBDD;
         }
     }
+
+
     public boolean checkScoreInput(double score){
         return  score >=0.0 && score <=10;
     }
@@ -38,4 +44,5 @@ public class Score {
             return "A";
         }
     }
+
 }
