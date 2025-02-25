@@ -1,9 +1,7 @@
 package com.example.baitap1;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Scanner;
 
 
@@ -23,12 +21,12 @@ class Student {
             "Lap trinh ung dung cho TBDĐ"
     };
 
-    public Student(String firstName, String lastName, String birthDay, String address) {
+    public Student(String firstName, String lastName, String birthDay, String address, double[] grades) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.birthDay = birthDay;
         this.address = address;
-        this.grades = new double[SUBJECT_COUNT];
+        this.grades = grades;
     }
 
     public void setGrades(double[] grades) {
@@ -77,26 +75,27 @@ class ClassRoom {
     }
 
 
-    // Hàm xếp hạng rank
-    public Map<String, Integer> getRankCounts() {
-        Map<String, Integer> rankCounts = new HashMap<>();
-        for (Student student : students) {
-            String rank = student.getRank();
-            rankCounts.put(rank, rankCounts.getOrDefault(rank, 0) + 1);
+public void displayRankCounts() {
+    int countA = 0, countB = 0, countC = 0, countD = 0, countLessD = 0;
+
+    for (Student student : students) {
+        String rank = student.getRank();
+        switch (rank) {
+            case "A": countA++; break;
+            case "B": countB++; break;
+            case "C": countC++; break;
+            case "D": countD++; break;
+            default: countLessD++; break;
         }
-        return rankCounts;
     }
 
-// Chat ho tro
-    public void displayRankCounts() {
-        Map<String, Integer> rankCounts = getRankCounts();
-        System.out.println("\nTong ket so sinh vien theo rank:");
-        System.out.println("A: " + rankCounts.getOrDefault("A", 0));
-        System.out.println("B: " + rankCounts.getOrDefault("B", 0));
-        System.out.println("C: " + rankCounts.getOrDefault("C", 0));
-        System.out.println("D: " + rankCounts.getOrDefault("D", 0));
-        System.out.println("<D: " + rankCounts.getOrDefault("<D", 0));
-    }
+    System.out.println("\nTong ket so sinh vien theo rank:");
+    System.out.println("A: " + countA);
+    System.out.println("B: " + countB);
+    System.out.println("C: " + countC);
+    System.out.println("D: " + countD);
+    System.out.println("<D: " + countLessD);
+}
 
     public void displayStudents() {
         for (Student student : students) {
@@ -114,53 +113,24 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         List<ClassRoom> classRooms = new ArrayList<>();
 
-        System.out.print("Nhap so luong lop: ");
-        int classCount = scanner.nextInt();
-        scanner.nextLine();
+        ClassRoom class1 = new ClassRoom("HT3");
+        class1.addStudent(new Student("Nguyen", "An", "2002-05-12", "Ha Noi", new double[]{9, 8, 7, 8, 9}));
+        class1.addStudent(new Student("Le", "Binh", "2001-09-23", "Da Nang", new double[]{6, 7, 8, 5, 7}));
+        class1.addStudent(new Student("Tran", "Chi", "2003-03-18", "TP HCM", new double[]{4, 5, 6, 4, 3}));
 
-        for (int i = 0; i < classCount; i++) {
-            System.out.println("Nhap thong tin lop thu " + (i + 1) + ": ");
-            System.out.print("Ten lop: ");
-            String className = scanner.nextLine();
-            ClassRoom classRoom = new ClassRoom(className);
+        ClassRoom class2 = new ClassRoom("HT4");
+        class2.addStudent(new Student("Pham", "Duc", "2002-07-25", "Hai Phong", new double[]{8, 8, 9, 7, 8}));
+        class2.addStudent(new Student("Do", "Hoang", "2000-12-01", "Can Tho", new double[]{5, 6, 5, 5, 6}));
 
-            System.out.print("Nhap so luong sinh vien trong lop: ");
-            int studentCount = scanner.nextInt();
-            scanner.nextLine();
+        classRooms.add(class1);
+        classRooms.add(class2);
 
-            for (int j = 0; j < studentCount; j++) {
-                System.out.println("Nhap thong tin sinh vien thu " + (j + 1) + ":");
-                System.out.print("Ho: ");
-                String firstName = scanner.nextLine();
-                System.out.print("Ten: ");
-                String lastName = scanner.nextLine();
-                System.out.print("Ngay sinh: ");
-                String birthDay = scanner.nextLine();
-                System.out.print("Dia chi: ");
-                String address = scanner.nextLine();
-
-                Student student = new Student(firstName, lastName, birthDay, address);
-
-                double[] grades = new double[Student.SUBJECT_COUNT];
-                for (int k = 0; k < Student.SUBJECT_COUNT; k++) {
-                    System.out.print("Nhap diem " + Student.SUBJECTS[k] + ": ");
-                    grades[k] = scanner.nextDouble();
-                }
-                scanner.nextLine();
-                student.setGrades(grades);
-
-                classRoom.addStudent(student);
-            }
-            classRooms.add(classRoom);
-        }
-
-
-        System.out.println("\nDanh sach cac lop:");
-        for (ClassRoom classRoom : classRooms) {
+        System.out.print("Chon lop hien thi danh sach:");
+        for(ClassRoom classRoom : classRooms)
+        {
             System.out.println(classRoom.getClassName());
         }
-
-        System.out.print("Nhap ten lop đe xem thong tin sinh vien: ");
+        System.out.print("\nNhap ten lop de xem thong tin sinh vien: ");
         String classNameInput = scanner.nextLine();
 
         ClassRoom selectedClass = null;
@@ -179,5 +149,6 @@ public class Main {
         }
 
         scanner.close();
+
     }
 }
